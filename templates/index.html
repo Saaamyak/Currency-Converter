@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter By Samyak</title>
+    <style>
+        body{
+            height: 100vh;
+            width: 100vw;  
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/static/imgs/bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #container{
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(240, 248, 255, 0.411);
+            box-shadow: 0px 0px 20px;
+            border-radius: 10px;
+        }
+        input, select{
+            margin: 10px;
+            width: 30vw;
+            min-width: 500px;
+            box-shadow: 0px 0px 20px black;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+        button{
+            margin: 10px;
+            background-color: aquamarine;
+            border-radius: 10px;
+            color: white;
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+            box-shadow: 0px 0px 20px black;
+        }
+        p{
+            background-color: rgba(240, 248, 255, 0.411);
+            border-radius: 10px;
+            padding: 10px 20px;
+            margin: 10px;
+            box-shadow: 0px 0px 20px black;
+            font-size: xx-large;
+
+        }
+    </style>
+</head>
+<body>
+    <form method="post" id='container'>
+        <select name="from_currency" id="from_currency"></select>
+        <input name="amount" placeholder="Amount" type="number" required/>
+        <select name="to_currency" id="to_currency"></select>
+        <button type="submit" name="submit">Convert</button>
+        <p>{{ans}}</p>
+    </form>
+    <script>
+        var response = "{{response}}";
+        if(response == "fail"){
+            alert("An error occured");
+        }
+        var currencies = {{data|safe}};
+        for (var i = 0; i < currencies.length; i++) {
+            var currency = currencies[i];
+            var option = document.createElement("option");
+            option.value = currency;
+            option.innerHTML = currency;
+            document.getElementById("from_currency").appendChild(option);
+            document.getElementById("to_currency").appendChild(option.cloneNode(true));
+        }
+    </script>
+</body>
+</html>
